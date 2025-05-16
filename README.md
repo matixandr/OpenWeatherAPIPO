@@ -1,96 +1,96 @@
-# Air Quality API
+# API Jakości Powietrza
 
-A Flask-based API for retrieving, storing, and querying air quality data from the Open-Meteo Air Quality API.
+API oparte na Flask do pobierania, przechowywania i zapytywania o dane jakości powietrza z Open-Meteo Air Quality API.
 
-## Project Overview
+## Przegląd Projektu
 
-This project implements a three-tier architecture:
-- **Presentation Layer**: Flask API endpoints (api/endpoints.py)
-- **Business Logic Layer**: Services for air quality data and validation (api/services.py)
-- **Data Access Layer**: Repository for data storage (api/repository.py)
+Ten projekt implementuje architekturę trójwarstwową:
+- **Warstwa Prezentacji**: Endpointy API Flask (api/endpoints.py)
+- **Warstwa Logiki Biznesowej**: Usługi do danych jakości powietrza i walidacji (api/services.py)
+- **Warstwa Dostępu do Danych**: Repozytorium do przechowywania danych (api/repository.py)
 
-The application follows best practices including:
-- Dependency injection
-- Class-based views
-- Data validation
-- Type hints
-- Clean code structure
+Aplikacja stosuje najlepsze praktyki, w tym:
+- Wstrzykiwanie zależności
+- Widoki oparte na klasach
+- Walidacja danych
+- Podpowiedzi typów
+- Czysta struktura kodu
 
-## Setup Instructions
+## Instrukcje Instalacji
 
-### Prerequisites
+### Wymagania Wstępne
 - Python 3.8+
 - pip
 
-### Installation
+### Instalacja
 
-1. Clone the repository:
+1. Sklonuj repozytorium:
 ```bash
 git clone https://github.com/yourusername/air-quality-api.git
 cd air-quality-api
 ```
 
-2. Install dependencies:
+2. Zainstaluj zależności:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Configure environment variables (optional):
-Create a `.env` file based on `.env.example`:
+3. Skonfiguruj zmienne środowiskowe (opcjonalnie):
+Utwórz plik `.env` na podstawie `.env.example`:
 ```
-LATITUDE=52.2297  # Warsaw latitude
-LONGITUDE=21.0122  # Warsaw longitude
+LATITUDE=52.2297  # Szerokość geograficzna Warszawy
+LONGITUDE=21.0122  # Długość geograficzna Warszawy
 ```
 
-### Running the Application
+### Uruchamianie Aplikacji
 
 ```bash
 python main.py
 ```
 
-The API will be available at `http://localhost:8000`.
+API będzie dostępne pod adresem `http://localhost:8000`.
 
-### Running Tests
+### Uruchamianie Testów
 
-The application includes a comprehensive test suite covering endpoints, repository, and services. You can run tests using the `--test` argument:
+Aplikacja zawiera kompleksowy zestaw testów obejmujący endpointy, repozytorium i usługi. Możesz uruchomić testy za pomocą argumentu `--test`:
 
 ```bash
-# Run endpoint tests
+# Uruchom testy endpointów
 python main.py --test=e
 
-# Run repository tests
+# Uruchom testy repozytorium
 python main.py --test=r
 
-# Run service tests
+# Uruchom testy usług
 python main.py --test=s
 
-# Run all tests
+# Uruchom wszystkie testy
 python main.py --test=all
 ```
 
-Alternatively, you can use pytest directly:
+Alternatywnie, możesz użyć bezpośrednio pytest:
 
 ```bash
-# Run all tests
+# Uruchom wszystkie testy
 pytest tests/
 
-# Run specific test files
+# Uruchom konkretne pliki testów
 pytest tests/test_endpoints.py
 pytest tests/test_repository.py
 pytest tests/test_services.py
 ```
 
-## API Endpoints
+## Endpointy API
 
-The API provides the following endpoints for interacting with air quality data:
+API udostępnia następujące endpointy do interakcji z danymi jakości powietrza:
 
-### 1. Create a Reading
+### 1. Utwórz Odczyt
 
 **Endpoint**: `POST /api/v1/readings`
 
-**Description**: Create a new environmental reading with weather and pollutant data.
+**Opis**: Utwórz nowy odczyt środowiskowy z danymi pogodowymi i zanieczyszczeniami.
 
-**Request Body**:
+**Treść Żądania**:
 ```json
 {
   "timestamp": "2023-01-01T12:00:00Z",
@@ -111,30 +111,30 @@ The API provides the following endpoints for interacting with air quality data:
 }
 ```
 
-**Response**: The created reading with status code 201.
+**Odpowiedź**: Utworzony odczyt z kodem statusu 201.
 
-### 2. Get Closest Reading
+### 2. Pobierz Najbliższy Odczyt
 
 **Endpoint**: `GET /api/v1/readings/closest?timestamp=2023-01-01T12:00:00Z`
 
-**Description**: Get the reading closest to the specified timestamp.
+**Opis**: Pobierz odczyt najbliższy określonemu znacznikowi czasu.
 
-**Query Parameters**:
-- `timestamp`: ISO 8601 formatted timestamp
+**Parametry Zapytania**:
+- `timestamp`: Znacznik czasu w formacie ISO 8601
 
-**Response**: The closest reading to the specified timestamp.
+**Odpowiedź**: Najbliższy odczyt do określonego znacznika czasu.
 
-### 3. Get Paginated Readings
+### 3. Pobierz Stronicowane Odczyty
 
 **Endpoint**: `GET /api/v1/readings/list?page=1&per_page=10`
 
-**Description**: Get a paginated list of all environmental readings.
+**Opis**: Pobierz stronicowaną listę wszystkich odczytów środowiskowych.
 
-**Query Parameters**:
-- `page`: Page number (default: 1)
-- `per_page`: Number of items per page (default: 10, max: 100)
+**Parametry Zapytania**:
+- `page`: Numer strony (domyślnie: 1)
+- `per_page`: Liczba elementów na stronę (domyślnie: 10, maks: 100)
 
-**Response**: List of readings with pagination metadata.
+**Odpowiedź**: Lista odczytów z metadanymi paginacji.
 
 ```json
 {
@@ -157,25 +157,25 @@ The API provides the following endpoints for interacting with air quality data:
 }
 ```
 
-### 4. Fetch Data from Air Quality API
+### 4. Pobierz Dane z API Jakości Powietrza
 
 **Endpoint**: `GET /api/v1/fetch-data?start_date=2023-01-01T00:00:00Z&end_date=2023-01-02T00:00:00Z`
 
-**Description**: Fetch air quality data from the Open-Meteo API for the specified date range.
+**Opis**: Pobierz dane jakości powietrza z API Open-Meteo dla określonego zakresu dat.
 
-**Query Parameters**:
-- `start_date`: ISO 8601 formatted start date
-- `end_date`: ISO 8601 formatted end date
+**Parametry Zapytania**:
+- `start_date`: Data początkowa w formacie ISO 8601
+- `end_date`: Data końcowa w formacie ISO 8601
 
-**Response**: List of readings fetched from the API.
+**Odpowiedź**: Lista odczytów pobranych z API.
 
-### 5. Health Check
+### 5. Sprawdzenie Stanu
 
 **Endpoint**: `GET /health`
 
-**Description**: Check if the API is running properly.
+**Opis**: Sprawdź, czy API działa poprawnie.
 
-**Response**: Status message indicating the health of the API.
+**Odpowiedź**: Komunikat o stanie wskazujący na kondycję API.
 
 ```json
 {
@@ -183,67 +183,67 @@ The API provides the following endpoints for interacting with air quality data:
 }
 ```
 
-## Project Structure
+## Struktura Projektu
 
 ```
 .
 ├── api/
 │   ├── __init__.py
-│   ├── client.py         # Air Quality API client
-│   ├── dependencies.py   # Dependency injection
-│   ├── endpoints.py      # API endpoints
-│   ├── models.py         # Data models
-│   ├── repository.py     # Data storage
-│   └── services.py       # Business logic
+│   ├── client.py         # Klient API Jakości Powietrza
+│   ├── dependencies.py   # Wstrzykiwanie zależności
+│   ├── endpoints.py      # Endpointy API
+│   ├── models.py         # Modele danych
+│   ├── repository.py     # Przechowywanie danych
+│   └── services.py       # Logika biznesowa
 ├── tests/
 │   ├── __init__.py
-│   ├── test_endpoints.py # API endpoint tests
-│   ├── test_repository.py # Repository tests
-│   └── test_services.py  # Service tests
-├── main.py               # Application entry point
-├── requirements.txt      # Dependencies
-└── .env.example          # Environment variables example
+│   ├── test_endpoints.py # Testy endpointów API
+│   ├── test_repository.py # Testy repozytorium
+│   └── test_services.py  # Testy usług
+├── main.py               # Punkt wejścia aplikacji
+├── requirements.txt      # Zależności
+└── .env.example          # Przykład zmiennych środowiskowych
 ```
 
-## Data Validation
+## Walidacja Danych
 
-The application validates environmental readings to ensure data quality:
+Aplikacja waliduje odczyty środowiskowe, aby zapewnić jakość danych:
 
-### Weather Validation
-- Temperature must be between -100°C and 60°C
-- Pressure must be between 800 hPa and 1200 hPa
-- Wind speed must be non-negative
+### Walidacja Pogody
+- Temperatura musi być między -100°C a 60°C
+- Ciśnienie musi być między 800 hPa a 1200 hPa
+- Prędkość wiatru musi być nieujemna
 
-### Pollutant Validation
-- PM10 must be between 0 and 1000 μg/m³
-- PM2.5 must be between 0 and 500 μg/m³
-- Carbon monoxide must be between 0 and 50 mg/m³
+### Walidacja Zanieczyszczeń
+- PM10 musi być między 0 a 1000 μg/m³
+- PM2.5 musi być między 0 a 500 μg/m³
+- Tlenek węgla musi być między 0 a 50 mg/m³
 
-## Caching
+## Buforowanie
 
-The application implements caching to improve performance:
+Aplikacja implementuje buforowanie w celu poprawy wydajności:
 
-- Closest reading queries are cached by timestamp
-- Paginated reading lists are cached by page and per_page parameters
-- Default cache timeout is 300 seconds (5 minutes)
+- Zapytania o najbliższy odczyt są buforowane według znacznika czasu
+- Stronicowane listy odczytów są buforowane według parametrów page i per_page
+- Domyślny czas wygaśnięcia bufora to 300 sekund (5 minut)
 
-This reduces database load and improves response times for frequently requested data.
+To zmniejsza obciążenie bazy danych i poprawia czasy odpowiedzi dla często żądanych danych.
 
-## Error Handling
+## Obsługa Błędów
 
-The application implements comprehensive error handling:
+Aplikacja implementuje kompleksową obsługę błędów:
 
-- HTTP exceptions are returned with appropriate status codes and error messages
-- Validation errors return detailed information about what failed
-- Unexpected errors are logged and return a generic 500 Internal Server Error
-- All requests and responses are logged for debugging purposes
+- Wyjątki HTTP są zwracane z odpowiednimi kodami statusu i komunikatami o błędach
+- Błędy walidacji zwracają szczegółowe informacje o tym, co się nie powiodło
+- Nieoczekiwane błędy są logowane i zwracają ogólny błąd 500 Internal Server Error
+- Wszystkie żądania i odpowiedzi są logowane do celów debugowania
 
-Example error response:
+Przykładowa odpowiedź błędu:
 
 ```json
 {
   "error": "Bad Request",
-  "message": "Invalid timestamp format",
+  "message": "Nieprawidłowy format znacznika czasu",
   "status_code": 400
 }
 ```

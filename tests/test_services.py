@@ -1,7 +1,7 @@
-import pytest
-from datetime import datetime
-from api.services import AirQualityService, ValidationService
 from api.models import EnvironmentalReading, WeatherReading, PollutantReading
+from api.services import AirQualityService, ValidationService
+from datetime import datetime
+import pytest
 
 # This decorator essentially allows the function to run before the test and get data from that function
 @pytest.fixture
